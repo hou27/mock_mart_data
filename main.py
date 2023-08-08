@@ -1,3 +1,5 @@
+import sys
+
 from add_cycle import add_cycle
 from detect_trend import (
     calc_prob,
@@ -14,8 +16,12 @@ if __name__ == "__main__":
     # 판매량 감소 추세 탐지 및 확률 생성
     trend_probs = calc_prob(df, detect_decrease_stock(df))
 
-    # 추가 사이클 2번 생성
-    for _ in range(5):
+    n = 1
+    if len(sys.argv) > 1:
+        n = int(sys.argv[1])
+
+    # 추가 사이클 n번 생성
+    for _ in range(n):
         df = add_cycle(df, trend_probs)
 
     # 엑셀 파일로 저장

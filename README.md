@@ -34,4 +34,7 @@ pip install -r requirements.txt
 
 ```
 python main.py
+
+# 또는 재고량 감소 사이클을 몇 개 생성할지 인자로 전달
+python main.py 12
 ```

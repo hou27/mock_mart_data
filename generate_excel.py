@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def generate_excel(df):
-    info_df = pd.read_excel("20230523_명지마트_가공식품.xlsx")
+    info_df = pd.read_excel("product_info.xlsx")
     # df의 NO feature를 1부터 순차적으로 증가하도록 변경
     info_df["NO"] = info_df.index + 1
 

@@ -34,7 +34,9 @@ def decrease_stock_init(
 
     if random.random() < prob:
         sales_qty = random.randint(*sale_range)
-        remaining_stock = generate_special_event(hour, remaining_stock)
+        remaining_stock = generate_special_event(
+            hour, remaining_stock
+        )  # 일반적이지 않은 재고 감소 이벤트
         add_sale(sales_qty)
 
     return sales_data, remaining_stock

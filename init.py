@@ -2,6 +2,8 @@ import pandas as pd
 import random
 import datetime
 
+from generate_special_event import generate_special_event
+
 
 # 재고량 감소 함수
 def decrease_stock_init(
@@ -32,6 +34,7 @@ def decrease_stock_init(
 
     if random.random() < prob:
         sales_qty = random.randint(*sale_range)
+        remaining_stock = generate_special_event(hour, remaining_stock)
         add_sale(sales_qty)
 
     return sales_data, remaining_stock

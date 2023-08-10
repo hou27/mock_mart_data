@@ -5,7 +5,7 @@ def generate_special_event(hour: int, remaining_stock: int):
     prob, sale_range = None, None
 
     """
-    갑작스런 대량 재고 감소
+    큰 폭의 재고 감소 이벤트
     """
     if hour < 9:
         prob = 0.0

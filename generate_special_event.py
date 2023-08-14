@@ -10,11 +10,11 @@ def generate_special_event(hour: int, remaining_stock: int):
     if hour < 9:
         prob = 0.0
     elif 9 <= hour < 12:
-        prob, sale_range = 0.1, (20, 30)
+        prob, sale_range = 0.02, (20, 30)
     elif 12 <= hour < 15:
         prob, sale_range = 0.13, (20, 30)
     elif 15 <= hour < 18:
-        prob, sale_range = 0.02, (20, 30)
+        prob, sale_range = 0.03, (20, 30)
     else:
         prob = 0.0
 

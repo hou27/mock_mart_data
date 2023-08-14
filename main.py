@@ -23,6 +23,7 @@ if __name__ == "__main__":
     # 추가 사이클 n번 생성
     for _ in range(n):
         df = add_cycle(df, trend_probs)
+        print(f"사이클 추가: {len(df)}개")
 
     # 엑셀 파일로 저장
     generate_excel(df)

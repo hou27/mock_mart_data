@@ -2,6 +2,8 @@ import pandas as pd
 import random
 import datetime
 
+from generate_special_event import generate_special_event
+
 
 # 재고량 감소 함수
 def decrease_stock(
@@ -24,6 +26,10 @@ def decrease_stock(
 
     if random.random() < trend_prob:
         sales_qty = random.randint(1, 5)
+
+        remaining_stock = generate_special_event(
+            timestamp.hour, remaining_stock
+        )  # 일반적이지 않은 재고 감소 이벤트
         add_sale(sales_qty)
 
     return sales_data, remaining_stock
@@ -66,18 +72,6 @@ def add_sequence(item_id: int, trend_prob: list, start_date: str):
             break
 
     return sales_data
-
-
-# # 재고량이 0이 된 가장 최근 시점을 찾아내 해당 item_id와 함께 list로 반환하는 method
-# def find_zero_stock_date(df):
-#     zero_stock_date = []
-#     for i in df["item_id"].unique():
-#         temp_df = df[df["item_id"] == i]
-#         if temp_df["remaining_stock"].min() == 0:
-#             zero_stock_date.append(
-#                 [i, temp_df[temp_df["remaining_stock"] == 0]["timestamp"].max()]
-#             )
-#     return zero_stock_date
 
 
 # 이전 사이클의 마지막 시점을 찾아내 해당 item_id와 함께 list로 반환하는 method

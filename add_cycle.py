@@ -47,6 +47,7 @@ def add_sequence(item_id: int, trend_prob: list, start_date: str):
             "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
         }
     ]
+
     while remaining_stock > 0:
         # 간격을 최소 30분으로 두고 이벤트 생성
         minutes_offset = random.randint(30, 300)
@@ -59,6 +60,10 @@ def add_sequence(item_id: int, trend_prob: list, start_date: str):
             item_id=item_id,
             trend_prob=trend_prob[timestamp.hour // 2],
         )
+
+        # 재고가 30개 이하인 경우, 50% 확률로 사이클 종료
+        if remaining_stock <= 30 and random.random() < 0.5:
+            break
 
     return sales_data
 

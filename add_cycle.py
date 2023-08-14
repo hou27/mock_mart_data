@@ -2,6 +2,8 @@ import pandas as pd
 import random
 import datetime
 
+from generate_special_event import generate_special_event
+
 
 # 재고량 감소 함수
 def decrease_stock(
@@ -24,6 +26,10 @@ def decrease_stock(
 
     if random.random() < trend_prob:
         sales_qty = random.randint(1, 5)
+
+        remaining_stock = generate_special_event(
+            timestamp.hour, remaining_stock
+        )  # 일반적이지 않은 재고 감소 이벤트
         add_sale(sales_qty)
 
     return sales_data, remaining_stock
@@ -47,6 +53,7 @@ def add_sequence(item_id: int, trend_prob: list, start_date: str):
             "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
         }
     ]
+
     while remaining_stock > 0:
         # 간격을 최소 30분으로 두고 이벤트 생성
         minutes_offset = random.randint(30, 300)
@@ -60,26 +67,28 @@ def add_sequence(item_id: int, trend_prob: list, start_date: str):
             trend_prob=trend_prob[timestamp.hour // 2],
         )
 
+        # 재고가 30개 이하인 경우, 50% 확률로 사이클 종료
+        if remaining_stock <= 30 and random.random() < 0.5:
+            break
+
     return sales_data
 
 
-# 재고량이 0이 된 가장 최근 시점을 찾아내 해당 item_id와 함께 list로 반환하는 method
-def find_zero_stock_date(df):
-    zero_stock_date = []
+# 이전 사이클의 마지막 시점을 찾아내 해당 item_id와 함께 list로 반환하는 method
+def find_last_stock_date(df):
+    last_event_of_prev_cycle = []
     for i in df["item_id"].unique():
         temp_df = df[df["item_id"] == i]
-        if temp_df["remaining_stock"].min() == 0:
-            zero_stock_date.append(
-                [i, temp_df[temp_df["remaining_stock"] == 0]["timestamp"].max()]
-            )
-    return zero_stock_date
+        last_event_of_prev_cycle.append([i, temp_df["timestamp"].max()])
+
+    return last_event_of_prev_cycle
 
 
 # 한 사이클을 더 추가하는 method
 def add_cycle(origin_df: pd.DataFrame, trend_probs: list) -> pd.DataFrame:
     addition_sales_data = []
     # trend_probs = calc_prob(first_cycle_ver6)
-    for item_id, end_date in find_zero_stock_date(origin_df):
+    for item_id, end_date in find_last_stock_date(origin_df):
         addition_sales_data += add_sequence(item_id, trend_probs[item_id], end_date)
 
     addition_sales_df = pd.DataFrame(addition_sales_data)

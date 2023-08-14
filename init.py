@@ -34,6 +34,7 @@ def decrease_stock_init(
 
     if random.random() < prob:
         sales_qty = random.randint(*sale_range)
+
         remaining_stock = generate_special_event(
             hour, remaining_stock
         )  # 일반적이지 않은 재고 감소 이벤트
@@ -71,6 +72,10 @@ def init() -> pd.DataFrame:
                 timestamp=timestamp_sales,
                 item_id=row["item_id"],
             )
+
+            # 재고가 30개 이하인 경우, 50% 확률로 사이클 종료
+            if remaining_stock <= 30 and random.random() < 0.5:
+                break
 
     # Mocked 판매 데이터를 포함하는 전체 데이터프레임 생성
     sales_df = pd.DataFrame(sales_data)

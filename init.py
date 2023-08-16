@@ -45,10 +45,10 @@ def decrease_stock_init(
 
 # 임의의 초기 데이터프레임 생성
 def init() -> pd.DataFrame:
-    # remaining_stock: 100, 110, 120, 130, 140, 150 중 하나의 정수
+    # remaining_stock: 100, 110, 120, 130, 140 중 하나의 정수
     data = {
         "item_id": range(1, 303),
-        "remaining_stock": [[100, 110, 120, 130, 140, 150][i % 5] for i in range(302)],
+        "remaining_stock": [[100, 110, 120, 130, 140][i % 5] for i in range(302)],
         "timestamp": ["2023-05-24 00:00:00" for _ in range(302)],
     }
     initial_df = pd.DataFrame(data)

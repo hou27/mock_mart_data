@@ -37,9 +37,9 @@ def decrease_stock(
 
 # remaining_stock이 0인 데이터를 찾아, 다시 mocking하는 코드
 def add_sequence(item_id: int, trend_prob: list, start_date: str):
-    remaining_stock = [100, 110, 120, 130, 140, 150][
+    remaining_stock = [100, 110, 120, 130, 140][
         (item_id - 1) % 5
-    ]  # random.choice([100, 110, 120, 130, 140, 150])
+    ]  # random.choice([100, 110, 120, 130, 140])
     # start_date으로부터 이틀 후 07시부터 시작(이 때 재고량이 채워진다고 가정)
     start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d %H:%M:%S")
     timestamp = start_date + datetime.timedelta(days=2)

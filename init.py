@@ -47,9 +47,9 @@ def decrease_stock_init(
 def init() -> pd.DataFrame:
     # remaining_stock: 100, 110, 120, 130, 140 중 하나의 정수
     data = {
-        "item_id": range(1, 303),
-        "remaining_stock": [[100, 110, 120, 130, 140][i % 5] for i in range(302)],
-        "timestamp": ["2023-05-24 00:00:00" for _ in range(302)],
+        "item_id": range(1, 302),
+        "remaining_stock": [[100, 110, 120, 130, 140][i % 5] for i in range(301)],
+        "timestamp": ["2023-05-24 00:00:00" for _ in range(301)],
     }
     initial_df = pd.DataFrame(data)
 
@@ -92,7 +92,7 @@ def clean_first_cycle(df: pd.DataFrame) -> pd.DataFrame:
         df["timestamp"] == "2023-05-24 00:00:00"
     ].sort_values(by=["item_id"])
     # sorted_inital_time_data를 full_df_ver3의 0 ~ 301번째 행에 대입
-    df.iloc[0:302] = sorted_inital_time_data
+    df.iloc[0:301] = sorted_inital_time_data
 
     # index 재부여
     df.reset_index(drop=True, inplace=True)

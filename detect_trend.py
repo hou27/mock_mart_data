@@ -4,9 +4,9 @@ import pandas as pd
 # 재고량이 줄어들던 추세를 탐지하는 함수
 def detect_decrease_stock(df: pd.DataFrame) -> list:
     # 추세
-    trend = [[0 for _ in range(12)] for _ in range(303)]
+    trend = [[0 for _ in range(12)] for _ in range(302)]
 
-    for i in range(1, 303):
+    for i in range(1, 302):
         df_for_single_product = df.loc[df["item_id"] == i].reset_index(drop=True)
         # 날짜 상관없이 시간대별로 정렬
 

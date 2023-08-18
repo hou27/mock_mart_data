@@ -85,7 +85,7 @@ def init() -> pd.DataFrame:
 
 
 # 첫 사이클 정리
-def clean_first_cycle(df: pd.DataFrame) -> pd.DataFrame:
+def sort_cycle(df: pd.DataFrame) -> pd.DataFrame:
     df.sort_values(by=["timestamp"], inplace=True)
     # 초기 시간인 것은 id 순으로 정렬
     sorted_inital_time_data = df.loc[

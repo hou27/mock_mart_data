@@ -2,37 +2,7 @@ import pandas as pd
 import random
 import datetime
 
-from generate_special_event import generate_special_event
-
-
-# 재고량 감소 함수
-def decrease_stock(
-    sales_data: list,
-    remaining_stock: int,
-    timestamp: datetime,
-    item_id: int,
-    trend_prob: float,
-):
-    def add_sale(sales_qty: int):
-        nonlocal remaining_stock
-        # 재고 음수 방지
-        remaining_stock = max(remaining_stock - sales_qty, 0)
-        sale_row = {
-            "item_id": item_id,
-            "remaining_stock": remaining_stock,
-            "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-        }
-        sales_data.append(sale_row)
-
-    if random.random() < trend_prob:
-        sales_qty = random.randint(1, 5)
-
-        remaining_stock = generate_special_event(
-            timestamp.hour, remaining_stock
-        )  # 일반적이지 않은 재고 감소 이벤트
-        add_sale(sales_qty)
-
-    return sales_data, remaining_stock
+from decrease_stock import decrease_stock
 
 
 # remaining_stock이 0인 데이터를 찾아, 다시 mocking하는 코드

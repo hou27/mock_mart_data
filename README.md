@@ -1,4 +1,8 @@
-# 마트 재고량 데이터 mocking
+# SW 경진대회 출품작(Forestore)
+
+> 마트 재고량 데이터 mocking용 프로젝트
+
+### [서비스 소개](https://github.com/hou27/mju_mart_visualize/blob/main/README.md)
 
 ## 1. 개요
 
@@ -9,6 +13,14 @@
 ### init.py
 
 > 첫번째 재고량 감소 사이클을 생성
+
+### decrease_stock.py
+
+> 재고량 감소 이벤트를 생성
+
+### generate_special_event.py
+
+> 특별 이벤트를 생성(큰 폭의 재고량 감소)
 
 ### detect_trend.py
 
